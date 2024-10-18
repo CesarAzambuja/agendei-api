@@ -1,10 +1,44 @@
 import serviceDoctor from "../services/service.doctor.js";
 
-async function Listar(req, res) {
+async function List(req, res) {
 
-    const doctors = await serviceDoctor.Listar();
+    const name = req.query.name;
+    const doctors = await serviceDoctor.List(name);
 
     res.status(200).json(doctors);
 }
 
-export default { Listar }
+async function Insert(req, res) {
+
+        const {name, specialty, icon} = req.body;
+
+        const doctor = await serviceDoctor.Insert(name, specialty, icon);
+
+    res.status(201).json(doctor)
+    
+}
+
+async function Update(req, res) {
+
+    const id_doctor = req.params.id_doctor;
+    const {name, specialty, icon} = req.body;
+
+    const doctor = await serviceDoctor.Update(name, specialty, icon, id_doctor);
+
+res.status(200).json(doctor)
+
+}
+
+async function Delete(req, res) {
+
+    const id_doctor = req.params.id_doctor;
+
+    const doctor = await serviceDoctor.Delete(id_doctor);
+
+res.status(200).json(doctor)
+
+}
+
+
+
+export default { List, Insert, Update, Delete }

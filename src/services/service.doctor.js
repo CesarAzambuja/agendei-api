@@ -1,11 +1,31 @@
 import repoDoctor from "../repositories/repository.doctor.js";
 
-async function Listar() {
+async function List(name) {
 
-    const doctors = await repoDoctor.Listar();
+    const doctors = await repoDoctor.List(name);
 
     return doctors;
 }
 
+async function Insert(name, specialty, icon) {
 
-export default { Listar }
+    const doctor = await repoDoctor.Insert(name, specialty, icon);
+
+    return doctor;
+}
+
+async function Update(name, specialty, icon, id_doctor) {
+
+    const doctor = await repoDoctor.Update(name, specialty, icon, id_doctor);
+
+    return doctor;
+}
+
+async function Delete(id_doctor) {
+
+    const doctor = await repoDoctor.Delete(id_doctor);
+
+    return doctor;
+}
+
+export default { List, Insert, Update, Delete }
