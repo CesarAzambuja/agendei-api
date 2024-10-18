@@ -32,5 +32,12 @@ async function Login(email, password) {
     return user
 }
 
+async function Profile(id_user) {
 
-export default { Insert, Login  }
+    const profile = await repoUser.Profile(id_user);
+
+    return profile;
+}
+
+
+export default { Insert, Login, Profile}

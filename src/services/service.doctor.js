@@ -28,4 +28,12 @@ async function Delete(id_doctor) {
     return doctor;
 }
 
-export default { List, Insert, Update, Delete }
+async function ListServices(id_doctor) {
+
+    const serv = await repoDoctor.ListServices(id_doctor);
+
+    return serv;
+}
+
+
+export default { List, Insert, Update, Delete, ListServices }

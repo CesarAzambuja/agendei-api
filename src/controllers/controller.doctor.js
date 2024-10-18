@@ -39,6 +39,14 @@ res.status(200).json(doctor)
 
 }
 
+async function ListServices(req, res) {
+
+    const id_doctor = req.query.id_doctor;
+    const serv = await serviceDoctor.ListServices(id_doctor);
+
+    res.status(200).json(serv);
+}
 
 
-export default { List, Insert, Update, Delete }
+
+export default { List, Insert, Update, Delete, ListServices }
