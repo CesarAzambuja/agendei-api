@@ -14,4 +14,11 @@ async function Insert(id_user, id_doctor, id_service, booking_date, booking_hour
     return appointment;
 }
 
-export default { ListByUser, Insert }
+async function Delete(id_user, id_appointment) {
+
+    const appointment = await repoAppointment.Delete(id_user, id_appointment );
+
+    return appointment;
+}
+
+export default { ListByUser, Insert, Delete }

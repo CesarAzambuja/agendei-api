@@ -30,4 +30,13 @@ VALUES (?, ?, ?, ?, ?) returning id_appointment;`;
     return appointment;
 }
 
-export default { ListByUser, Insert}
+async function Delete(id_user, id_appointment){
+    let sql = `delete from appointments where id_appointment = ? and id_user = ?`;
+
+    await query(sql, [id_appointment, id_user]);
+
+    return {id_appointment};
+}
+
+
+export default { ListByUser, Insert, Delete}

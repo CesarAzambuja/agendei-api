@@ -21,6 +21,7 @@ router.get("/users/profile", jwt.ValidateToken, controllerUser.Profile);
 //Reservar
 router.get("/appointments", jwt.ValidateToken, controllerAppointment.ListByUser)
 router.post("/appointments", jwt.ValidateToken, controllerAppointment.Insert)
+router.delete("/appointments/:id_appointment", jwt.ValidateToken, controllerAppointment.Delete)
 
 //Services
 
