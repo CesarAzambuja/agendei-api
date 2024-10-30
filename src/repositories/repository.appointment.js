@@ -21,11 +21,11 @@ where a.id_user = ? order by a.booking_date, a.booking_hour` ;
     return appointments;
 } 
 
-async function Insert(id_doctor, id_service, id_user,  booking_date, booking_hour){
-    let sql = `INSERT INTO appointments (id_doctor, id_service, id_user, booking_date, booking_hour)
+async function Insert(id_user, id_doctor, id_service, booking_date, booking_hour){
+    let sql = `INSERT INTO appointments (id_user, id_doctor, id_service, booking_date, booking_hour)
 VALUES (?, ?, ?, ?, ?) returning id_appointment;`;
 
-    const appointment = await query(sql, [id_doctor, id_service, id_user,  booking_date, booking_hour]);
+    const appointment = await query(sql, [id_user, id_doctor, id_service, booking_date, booking_hour]);
 
     return appointment;
 }

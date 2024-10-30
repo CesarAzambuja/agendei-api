@@ -41,7 +41,7 @@ res.status(200).json(doctor)
 
 async function ListServices(req, res) {
 
-    const id_doctor = req.query.id_doctor;
+    const id_doctor = req.params.id_doctor;
     const serv = await serviceDoctor.ListServices(id_doctor);
 
     res.status(200).json(serv);

@@ -19,6 +19,7 @@ async function Insert(req, res) {
         const appointment = await serviceAppointment.Insert(id_user, id_doctor, id_service, booking_date, booking_hour);
 
     res.status(201).json(appointment)
+
 }
 
 async function Delete(req, res) {
