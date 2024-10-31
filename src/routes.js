@@ -18,6 +18,12 @@ router.post("/users/register", controllerUser.Insert);
 router.post("/users/login", controllerUser.Login);
 router.get("/users/profile", jwt.ValidateToken, controllerUser.Profile);
 
+
+//admin
+router.post("/admin/register", controllerUser.InsertAdmin);
+router.post("/admin/login", controllerUser.LoginAdmin);
+
+
 //Reservar
 router.get("/appointments", jwt.ValidateToken, controllerAppointment.ListByUser)
 router.post("/appointments", jwt.ValidateToken, controllerAppointment.Insert)

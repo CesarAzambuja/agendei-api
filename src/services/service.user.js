@@ -39,5 +39,33 @@ async function Profile(id_user) {
     return profile;
 }
 
+async function InsertAdmin(name, email, password) {
 
-export default { Insert, Login, Profile}
+    const hashPassword = await bcrypt.hash(password, 6);
+    const user = await repoUser.InsertAdmin(name, email, hashPassword);
+    user.token =jwt.CreateToken(user.id_user);
+
+    return user;
+}
+
+async function LoginAdmin(email, password) {
+
+
+    // const hashPassword = await bcrypt.hash(password, 6);
+    const user = await repoUser.ListByEmailAdmin(email);
+
+    if(user.length == 0)
+        return []
+    else {
+        if(await bcrypt.compare(password, user.password)){
+            delete user.password
+            user.token =jwt.CreateToken(user.id_user);
+            return user;
+        } else
+        return []
+    }
+    return user
+}
+
+
+export default { Insert, Login, Profile, InsertAdmin, LoginAdmin}

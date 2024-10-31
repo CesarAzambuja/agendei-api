@@ -35,4 +35,31 @@ async function Profile(req, res) {
 }
 
 
-export default { Insert, Login, Profile}
+async function InsertAdmin(req, res) {
+
+    const {name, email, password} = req.body;
+
+    const user = await serviceUser.InsertAdmin(name, email, password);
+
+res.status(201).json(user)
+}
+
+async function LoginAdmin(req, res) {
+
+const {email, password} = req.body;
+
+const user = await serviceUser.LoginAdmin(email, password);
+
+if(user.length == 0) {
+    res.status(401).json({error: "Email ou senha inválida!"});
+} else {
+    res.status(200).json(user);
+}
+
+
+}
+
+
+
+
+export default { Insert, Login, Profile, InsertAdmin, LoginAdmin}
