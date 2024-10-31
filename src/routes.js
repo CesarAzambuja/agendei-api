@@ -22,10 +22,12 @@ router.get("/users/profile", jwt.ValidateToken, controllerUser.Profile);
 //admin
 router.post("/admin/register", controllerUser.InsertAdmin);
 router.post("/admin/login", controllerUser.LoginAdmin);
+router.get("/admin/appointments", jwt.ValidateToken, controllerAppointment.List)
 
 
 //Reservar
 router.get("/appointments", jwt.ValidateToken, controllerAppointment.ListByUser)
+
 router.post("/appointments", jwt.ValidateToken, controllerAppointment.Insert)
 router.delete("/appointments/:id_appointment", jwt.ValidateToken, controllerAppointment.Delete)
 

@@ -33,4 +33,16 @@ res.status(200).json(appointment)
 
 }
 
-export default { ListByUser, Insert, Delete }
+
+async function List(req, res) {
+
+    const dt_start = req.query.dt_Start
+    const dt_end = req.query.dt_End
+    const id_doctor = req.query.id_doctor
+
+    const appointments = await serviceAppointment.List(dt_start, dt_end, id_doctor);
+
+    res.status(200).json(appointments);
+}
+
+export default { ListByUser, Insert, Delete, List }

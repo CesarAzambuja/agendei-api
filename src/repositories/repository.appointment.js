@@ -38,5 +38,42 @@ async function Delete(id_user, id_appointment){
     return {id_appointment};
 }
 
+async function List(dt_start, dt_end, id_doctor) {
 
-export default { ListByUser, Insert, Delete}
+    let myFilter = []
+
+    let sql = `select a.id_appointment, s.description as service, d.name as doctor, d.specialty, a.booking_date, a.booking_hour, u.name as paciente, ds.price
+    
+    from appointments a
+    
+    join doctors d on d.id_doctor = a.id_doctor
+    join services s on s.id_service = a.id_service
+    join users u on u.id_user = a.id_user
+    join doctors_services ds on ds.id_doctor = a.id_doctor and ds.id_service = a.id_service
+    
+    where a.id_appointment > 0` ; 
+        
+    if(dt_start){
+        myFilter.push(dt_start)
+        sql = sql + " and a.booking_dat >= ?"
+    }
+
+    if(dt_end){
+        myFilter.push(dt_end)
+        sql = sql + " and a.booking_dat <= ?"
+    }
+
+    if(id_doctor){
+        myFilter.push(id_doctor)
+        sql = sql + " and a.id_doctor = ?"
+    }
+
+    sql = sql + " order by a.booking_date, a.booking_hour"
+    
+        const appointments = await query(sql, myFilter);
+    
+        return appointments;
+    } 
+
+
+export default { ListByUser, Insert, Delete, List}
