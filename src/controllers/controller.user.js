@@ -46,20 +46,25 @@ res.status(201).json(user)
 
 async function LoginAdmin(req, res) {
 
-const {email, password} = req.body;
+    const {email, password} = req.body;
 
-const user = await serviceUser.LoginAdmin(email, password);
+    const user = await serviceUser.LoginAdmin(email, password);
 
-if(user.length == 0) {
-    res.status(401).json({error: "Email ou senha inválida!"});
-} else {
+    if(user.length == 0) {
+        res.status(401).json({error: "Email ou senha inválida!"});
+    } else {
+        res.status(200).json(user);
+    }
+}
+
+async function List(req, res) {
+
+    const user = await serviceUser.List();
+
     res.status(200).json(user);
-}
-
 
 }
 
 
 
-
-export default { Insert, Login, Profile, InsertAdmin, LoginAdmin}
+export default { Insert, Login, Profile, InsertAdmin, LoginAdmin, List}

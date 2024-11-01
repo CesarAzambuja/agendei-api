@@ -42,7 +42,7 @@ async function List(dt_start, dt_end, id_doctor) {
 
     let myFilter = []
 
-    let sql = `select a.id_appointment, s.description as service, d.name as doctor, d.specialty, a.booking_date, a.booking_hour, u.name as paciente, ds.price
+    let sql = `select a.id_appointment, s.description as service, d.name as doctor, d.specialty, a.booking_date, a.booking_hour, u.name as paciente, ds.price, a.id_doctor, a.id_service, a.id_user
     
     from appointments a
     
@@ -73,7 +73,33 @@ async function List(dt_start, dt_end, id_doctor) {
         const appointments = await query(sql, myFilter);
     
         return appointments;
-    } 
+} 
+
+async function ListById(id_appointment){
+    let sql = `select a.id_appointment, s.description as service, d.name as doctor, d.specialty, a.booking_date, a.booking_hour, u.name as paciente, ds.price, a.id_doctor, a.id_service, a.id_user
+    
+    from appointments a
+    
+    join doctors d on d.id_doctor = a.id_doctor
+    join services s on s.id_service = a.id_service
+    join users u on u.id_user = a.id_user
+    join doctors_services ds on ds.id_doctor = a.id_doctor and ds.id_service = a.id_service
+    
+    where a.id_appointment = ? `;
+
+    const appointment = await query(sql, [id_appointment]);
+
+    return appointment[0];
+}
 
 
-export default { ListByUser, Insert, Delete, List}
+async function EditByAdmin(id_appointment ,id_user, id_doctor, id_service, booking_date, booking_hour){
+    let sql = ` UPDATE appointments set id_user = ?, id_doctor = ?, id_service = ?,  booking_date = ?, booking_hour = ?
+ where id_appointment = ?;`;
+
+    await query(sql, [id_user, id_doctor, id_service, booking_date, booking_hour, id_appointment]);
+
+    return {id_appointment};
+}
+
+export default { ListByUser, Insert, Delete, List, ListById, EditByAdmin}

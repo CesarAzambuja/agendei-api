@@ -50,5 +50,13 @@ async function ListByEmailAdmin(email){
     return user[0];
 }   
 
+async function List(){
+    let sql = `select id_user, name, email  from users order by name `;
 
-export default { Insert, ListByEmail, Profile, InsertAdmin, ListByEmailAdmin }
+    const users = await query(sql, []);
+
+    return users
+}  
+
+
+export default { Insert, ListByEmail, Profile, InsertAdmin, ListByEmailAdmin, List }

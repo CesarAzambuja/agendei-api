@@ -19,19 +19,21 @@ router.post("/users/login", controllerUser.Login);
 router.get("/users/profile", jwt.ValidateToken, controllerUser.Profile);
 
 
+//Reservar
+router.get("/appointments", jwt.ValidateToken, controllerAppointment.ListByUser)
+router.post("/appointments", jwt.ValidateToken, controllerAppointment.Insert)
+router.delete("/appointments/:id_appointment", jwt.ValidateToken, controllerAppointment.Delete)
+
 //admin
 router.post("/admin/register", controllerUser.InsertAdmin);
 router.post("/admin/login", controllerUser.LoginAdmin);
 router.get("/admin/appointments", jwt.ValidateToken, controllerAppointment.List)
+router.get("/admin/appointments/:id_appointment", jwt.ValidateToken, controllerAppointment.ListById)
+router.post("/admin/appointments", jwt.ValidateToken, controllerAppointment.InsertByAdmin)
+router.put("/admin/appointments/:id_appointment", jwt.ValidateToken, controllerAppointment.EditByAdmin)
+router.get("/admin/users", jwt.ValidateToken, controllerUser.List)
 
 
-//Reservar
-router.get("/appointments", jwt.ValidateToken, controllerAppointment.ListByUser)
-
-router.post("/appointments", jwt.ValidateToken, controllerAppointment.Insert)
-router.delete("/appointments/:id_appointment", jwt.ValidateToken, controllerAppointment.Delete)
-
-//Services
 
 
 

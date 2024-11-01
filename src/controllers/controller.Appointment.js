@@ -45,4 +45,35 @@ async function List(req, res) {
     res.status(200).json(appointments);
 }
 
-export default { ListByUser, Insert, Delete, List }
+async function ListById(req, res) {
+
+    const id_appointment = req.params.id_appointment
+
+    const appointment = await serviceAppointment.ListById(id_appointment);
+
+    res.status(200).json(appointment);
+}
+
+async function InsertByAdmin(req, res) {
+
+    const {id_user, id_doctor, id_service, booking_date, booking_hour} = req.body;
+
+        const appointment = await serviceAppointment.Insert(id_user, id_doctor, id_service, booking_date, booking_hour);
+
+    res.status(201).json(appointment)
+
+}
+
+async function EditByAdmin(req, res) {
+
+    const id_appointment = req.params.id_appointment
+    const {id_user, id_doctor, id_service, booking_date, booking_hour} = req.body;
+
+    const appointment = await serviceAppointment.EditByAdmin(id_appointment, id_user, id_doctor, id_service, booking_date, booking_hour);
+
+    res.status(200).json(appointment);
+}
+
+
+
+export default { ListByUser, Insert, Delete, List, ListById, InsertByAdmin, EditByAdmin}

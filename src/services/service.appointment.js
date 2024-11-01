@@ -28,4 +28,18 @@ async function List(dt_start, dt_end, id_doctor) {
     return appointments;
 }
 
-export default { ListByUser, Insert, Delete, List }
+async function ListById(id_appointment) {
+
+    const appointment = await repoAppointment.ListById(id_appointment);
+
+    return appointment;
+}
+
+async function EditByAdmin(id_appointment, id_user, id_doctor, id_service, booking_date, booking_hour) {
+
+    const appointment = await repoAppointment.EditByAdmin(id_appointment, id_user, id_doctor, id_service, booking_date, booking_hour);
+
+    return appointment;
+}
+
+export default { ListByUser, Insert, Delete, List, ListById, EditByAdmin }
